@@ -1,0 +1,205 @@
+/* <====================>
+
+# UNICORN KINGDOM STYLES
+
+<=======================> */
+
+/*
+
+TO DO:
+
+1. Style registration page
+2. Style login page
+3. Style dashboard
+
+
+
+*/
+
+
+
+
+/* Base Styles */
+body, html {
+    height: 100%;
+}
+html {
+    font-family: sans-serif;
+    line-height: 1.15;
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+}
+body {
+    font-family: sans-serif;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    text-align: left;    
+    color: #333;
+    background-color: #fff;    
+    margin: 0;    
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;    
+}
+*, ::after, ::before {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+header {
+    display: flex;
+    height: 70px;
+    border-bottom: 2px solid black;
+    justify-content: space-between;
+    padding: 0 1rem;
+    align-items: center;
+}
+h1 {
+    font-size: calc(1.5rem + 0.5vw);
+}
+a {
+    padding: 1.5rem;
+    background: black;
+    text-transform: uppercase;
+    font-family: sans-serif;
+    font-weight: bold;
+    letter-spacing: 1px;
+    border: none;      
+    color: white;
+    text-decoration: none;   
+}
+
+/* Form classes */
+.form-container {
+    max-width: 600px;
+    width: 85vw;
+    margin: 0 auto;
+}
+.unicorn-form,
+.login-form {
+    display: grid;
+}
+label {
+    font-family: sans-serif;
+    font-size: 1.3rem;
+    font-weight: 600;   
+    padding: 1rem 0 0.5rem;
+}
+input[type='text'],
+input[type='email'],
+input[type='password'] {
+    font-size: 1.3rem;
+    padding: 0.6rem 0.4rem;
+    border: 3px solid darkmagenta;
+}
+input[type='submit'] {
+    margin: 30px 0;
+    width: 250px;
+    padding: 1rem;
+    font-size: 1.4rem;
+    text-transform: uppercase;
+    background: darkmagenta;
+    color: #FFF;
+    border: none;
+    cursor: pointer;    
+}
+select {
+    font-size: 1.3rem;
+    padding: 0.6rem 0.4rem;
+    border: 3px solid darkmagenta;    
+}
+.login-form-ctas {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;    
+}
+
+/* Dashboard classes */
+.dashboard-container {
+    display: grid;
+    grid-template-columns: 15px 35vw 1fr 15px;
+    grid-template-rows: 30px auto 20px;
+    column-gap: 30px; 
+    row-gap: 30px;
+}
+.user-info-sidebar {
+    grid-column: 2;
+    grid-row: 2;
+    min-height: 40vh; 
+    max-height: calc(100vh - 200px);
+    padding: 1.5rem;
+    border: 2px solid black;
+}
+.user-info-sidebar--list {
+    font-size: 1.2rem;
+    padding: 0;
+    list-style-type: none;
+}
+.unicorn {
+    grid-column: 3;
+    grid-row: 2;
+    min-height: 40vh; 
+    max-height: calc(100vh - 200px);
+    padding: 1.5rem;
+    border: 2px solid black;    
+}
+
+/* Hide elements class */
+.hide {
+    display: none;
+}
+
+/* SVG Classes */
+svg {
+    width: 100%;
+    height: 100%;
+}
+.grey {
+    fill:#ececec;
+}
+.gold {
+    fill:gold;
+    stroke:gold;
+    stroke-miterlimit:10;
+}
+.gold-alt {
+    fill:gold;
+    stroke:gold;	
+    stroke-width:0.94px;
+    stroke-miterlimit:10;							
+}
+.grey-alt {
+    fill:#e0e0e0;
+}
+.white {
+    fill:#fff;
+    stroke:#8fffd5;
+    stroke-width:3px;
+    stroke-miterlimit:10;
+}
+.stroke {
+    fill:none;
+    stroke:#666;
+    stroke-linecap:round;
+    stroke-width:3px;
+    stroke-miterlimit:10;
+}
+.grey-darker {
+    fill:#ddd;
+}
+.hoof, 
+.star {
+    transition: fill 0.8s ease;
+}
+.mane-violet {
+    fill: violet;
+}
+.mane-turquoise {
+    fill: turquoise;
+}
+.mane-cornflower-blue {
+    fill: cornflowerblue;
+}
+.mane-hot-pink {
+    fill: hotpink;
+}
