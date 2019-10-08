@@ -60,6 +60,7 @@ $(function() {
             memberUnicornFood = userProfile.unicornFood;
             memberUnicornPower = userProfile.unicornPower;
         });
+
     } // extractUserProfileInfo();
 
     // Build the dashboard
@@ -78,50 +79,80 @@ $(function() {
         // Show unicorn SVG
         $(".unicorn").removeClass("hide");
 
+        // Using a JavaScript Class to build my unicorn character
+        // Is it overkill? Probably.
+        class Character {
+
+            // Params are: food, hood, colour, food and power
+            constructor(name, hood, colour, food, power) {
+                this.name = name; 
+                this.hood = hood; 
+                this.colour = colour;
+                this.food = food;
+                this.power = power;
+            }
+            colourNames = {
+                violet: "Violet",
+                turquoise: "Turquoise",
+                cornflowerBlue: "Cornflower Blue",
+                hotPink: "Hot Pink"
+            }
+            colourClasses = {
+                violetMane: "mane-violet",
+                turquoiseMane: "mane-turquoise",
+                cornflowerBlueMane: "mane-cornflower-blue",
+                hotPinkMane: "mane-hot-pink"
+            }
+        }
+
+        // Using the values from the user data object to populate the arguments passed into the Character Class
+        const unicorn = new Character(memberUnicornName, memberUnicornHood, memberUnicornColour, memberUnicornFood, memberUnicornPower);       
+
         // Build dashboard header with updated title, and logout button
         $headerElement.hide().html(`
-            <div>
-                <h1>Hi ${memberName}, welcome to Unicorn Kingdom</h1>
+            <div class="dashboard-header">
+                <h1 class="dashboard-title">Hi ${memberName}, welcome to Unicorn Kingdom</h1>
+                <a id="logout" class="logout-button" href="#" title="Logout from your Dashboard">Logout</a>    
             </div>
-            <div>
-                <a id="logout" href="#" title="Logout from your Dashboard">Logout</a>    
-            </div>
+            <div class="header footer--blue"></div>
+            <div class="header footer--green"></div>
+            <div class="header footer--gold"></div>
+            <div class="header footer--pink"></div>
+            <div class="header footer--violet"></div>            
         `).fadeIn( 1000 );
 
         // Create user info sidebar heading
         $(".user-info-sidebar--heading").hide().html(`
-            <h2 class="user-info-sidebar--heading">${memberName}'s Unicorn Profile</h2>
+            <h2 class="user-info-sidebar--heading">${memberName}'s Unicorn</h2>
         `).delay( 500 ).fadeIn( 500 );
 
         // Create user info sidebar content using dynamic input values from the user
-        $(".user-info-sidebar--list").hide().html(`
-            <li>This is ${memberUnicornName}!</li>
-            <li>${memberUnicornName}'s Hood is ${memberUnicornHood}</li>
-            <li>${memberUnicornName}'s Colour is ${memberUnicornColour}</li>
-            <li>${memberUnicornName}'s Fav Food is ${memberUnicornFood}</li>  
-            <li>${memberUnicornName}'s Magical Power is ${memberUnicornPower}</li>
-        `).delay(500).fadeIn(1000);
+        $(".user-info-sidebar--info").hide().html(`
+            <h3>Name: ${unicorn.name}</h3>
+            <p><span class="standout-colour">${unicorn.name}</span> lives in <span class="standout-colour">${unicorn.hood}</span>. They love to eat <span class="standout-colour">${unicorn.food}</span> and their favourite colour is <span class="standout-colour">${unicorn.colour}</span>. This unicorn is special and has a unique power of <span class="standout-colour">${unicorn.power}</span>.</p>
+        `).delay(500).fadeIn(700);
 
         // Conditional statement which checks which value was chosen from the select dropdown in the registration form, and adds the corresponding CSS class to the SVG unicorn
-        if ( memberUnicornColour === "Violet" ) {
+        // The comparison works because I've added the colour names to the unicorn's object properties
+        if ( unicorn.colour === unicorn.colourNames.violet ) {
 
             // Violet class
-            $unicornMane.addClass("mane-violet");
+            $unicornMane.addClass(unicorn.colourClasses.violetMane);
 
-        } else if ( memberUnicornColour === "Turquoise" ) {
+        } else if ( unicorn.colour === unicorn.colourNames.turquoise ) {
             
             // Turquoise class
-            $unicornMane.addClass("mane-turquoise");
+            $unicornMane.addClass(unicorn.colourClasses.turquoiseMane);
 
-        } else if ( memberUnicornColour === "Cornflower Blue" ) {
+        } else if ( unicorn.colour === unicorn.colourNames.cornflowerBlue ) {
 
             // Cornflower Blue class
-            $unicornMane.addClass("mane-cornflower-blue");
+            $unicornMane.addClass(unicorn.colourClasses.cornflowerBlueMane);
 
         } else {
 
             // Hot Pink class
-            $unicornMane.addClass("mane-hot-pink");
+            $unicornMane.addClass(unicorn.colourClasses.hotPinkMane);
 
         }
 
@@ -152,7 +183,17 @@ $(function() {
         $("#logout").on("click", function() {
 
             // Hide header
-            $headerElement.hide().fadeOut( 1000 );
+            // $headerElement.hide().fadeOut( 1000 );
+            $headerElement.html(`
+                <div class="form-header">
+                    <h1 class="site-title">Unicorn Kingdom</h1>   
+                </div>
+                <div class="header footer--blue"></div>
+                <div class="header footer--green"></div>
+                <div class="header footer--gold"></div>
+                <div class="header footer--pink"></div>
+                <div class="header footer--violet"></div>            
+            `).fadeIn( 1000 );
 
             // Swap container classes 
             $container.removeClass("dashboard-container");
@@ -208,6 +249,7 @@ $(function() {
                 alert("Failure! Both your login email and login password are incorrect.");
 
             }
+            logoutDashboard();            
         });
     }
 
@@ -248,13 +290,9 @@ $(function() {
      * Step 1: User completes registration and when they click JOIN they are auto signed in to the dashboard. 
      * Step 2: User logs out of the dashboard using the logout button, and they are taken to the login page. 
      * Step 3: User logs back in to the dashboard using the login form.
+     * Step 4: User logs back out of the dashboard using the logout button.
+     * Step 5: User can either login again and logout again in a loop forever. OR they can click the Register Now button on the login page and that will refresh the page and clear out all the data.
      * 
-     * I am unsure of how to make a loop that will loop through the function calls
-     * or something like that. Because once the user logs in via the login form, 
-     * the logout button no longer works and the functionality of the app ends. 
-     * How would I structure the function calls so I can loop through the app forever?
-     * Creating new users, adding those user data objects to the user profiles array, accessing that array of objects and moving through the app (dashboard, login, registration, repeat repeat repeat).
-     * Obviously cannot refresh the browser while playing around in the app!
      **/
 
 }); // Document.ready
